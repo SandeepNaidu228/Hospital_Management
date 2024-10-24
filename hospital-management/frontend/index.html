@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Hospital Management System</h1>
+            <div class="flex space-x-4">
+                <button onclick="showSection('dashboard')" class="hover:text-blue-200">Dashboard</button>
+                <button onclick="showSection('patients')" class="hover:text-blue-200">Patients</button>
+                <button onclick="showSection('doctors')" class="hover:text-blue-200">Doctors</button>
+                <button onclick="showSection('nurses')" class="hover:text-blue-200">Nurses</button>
+                <button onclick="showSection('rooms')" class="hover:text-blue-200">Rooms</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="container mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Dashboard Cards -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Total Patients</h3>
+                    <i class="fas fa-users text-blue-500 text-2xl"></i>
+                </div>
+                <p class="text-3xl font-bold mt-4" id="patientCount">0</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Total Doctors</h3>
+                    <i class="fas fa-user-md text-green-500 text-2xl"></i>
+                </div>
+                <p class="text-3xl font-bold mt-4" id="doctorCount">0</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Total Nurses</h3>
+                    <i class="fas fa-user-nurse text-red-500 text-2xl"></i>
+                </div>
+                <p class="text-3xl font-bold mt-4" id="nurseCount">0</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Available Rooms</h3>
+                    <i class="fas fa-bed text-yellow-500 text-2xl"></i>
+                </div>
+                <p class="text-3xl font-bold mt-4" id="roomCount">0</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patients Section -->
+    <section id="patients" class="container mx-auto p-6 hidden">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Patients Management</h2>
+                <button onclick="showModal('patientModal')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Add Patient
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Age</th>
+                            <th class="px-4 py-2">Gender</th>
+                            <th class="px-4 py-2">Contact</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientTableBody">
+                        <!-- Patient data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="container mx-auto p-6 hidden">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Doctors Management</h2>
+                <button onclick="showModal('doctorModal')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Add Doctor
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Specialization</th>
+                            <th class="px-4 py-2">Experience</th>
+                            <th class="px-4 py-2">Contact</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorTableBody">
+                        <!-- Doctor data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nurses Section -->
+    <section id="nurses" class="container mx-auto p-6 hidden">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Nurses Management</h2>
+                <button onclick="showModal('nurseModal')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Add Nurse
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Department</th>
+                            <th class="px-4 py-2">Shift</th>
+                            <th class="px-4 py-2">Contact</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nurseTableBody">
+                        <!-- Nurse data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="container mx-auto p-6 hidden">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Rooms Management</h2>
+                <button onclick="showModal('roomModal')" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    Add Room
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2">Room No</th>
+                            <th class="px-4 py-2">Type</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Price/Day</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roomTableBody">
+                        <!-- Room data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Templates -->
+    <!-- Patient Modal -->
+    <div id="patientModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 mx-auto mt-20">
+            <h3 class="text-xl font-bold mb-4">Add Patient</h3>
+            <form id="patientForm" class="space-y-4">
+                <input type="text" placeholder="Name" class="w-full p-2 border rounded">
+                <input type="date" placeholder="DOB" class="w-full p-2 border rounded">
+                <input type="text" placeholder="Mobile Number" class="w-full p-2 border rounded">
+                <input type="number" placeholder="Age" class="w-full p-2 border rounded">
+                <select class="w-full p-2 border rounded">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" onclick="hideModal('patientModal')" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Similar modals for doctors, nurses, and rooms -->
+
+    <script>
+        // Navigation Functions
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Modal Functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // API Functions
+        async function fetchData() {
+            try {
+                const patients = await fetch('http://localhost:3000/api/patients').then(res => res.json());
+                const doctors = await fetch('http://localhost:3000/api/doctors').then(res => res.json());
+                const nurses = await fetch('http://localhost:3000/api/nurses').then(res => res.json());
+                const rooms = await fetch('http://localhost:3000/api/rooms').then(res => res.json());
+
+                // Update dashboard counts
+                document.getElementById('patientCount').textContent = patients.length;
+                document.getElementById('doctorCount').textContent = doctors.length;
+                document.getElementById('nurseCount').textContent = nurses.length;
+                document.getElementById('roomCount').textContent = rooms.length;
+
+                // Update tables
+                updateTable('patientTableBody', patients);
+                updateTable('doctorTableBody', doctors);
+                updateTable('nurseTableBody', nurses);
+                updateTable('roomTableBody', rooms);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        function updateTable(tableId, data) {
+            const tbody = document.getElementById(tableId);
+            tbody.innerHTML = '';
+            
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                // Add cells based on table type
+                // This is a simplified version - expand based on your needs
+                tr.innerHTML = `
+                    <td class="px-4 py-2">${item.Name || item.Room_No}</td>
+                    <td class="px-4 py-2">${item.Age || item.Specialization || item.Department || item.Type}</td>
+                    <td class="px-4 py-2">${item.Gender || item.Experience || item.Shift || item.Status}</td>
+                    <td class="px-4 py-2">${item.Mob_No || item.Contact_No || item.Price_Per_Day}</td>
+                    <td class="px-4 py-2">
+                        <button class="text-blue-500 hover:text-blue-700 mr-2">Edit</button>
+                        <button class="text-red-500 hover:text-red-700">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('dashboard');
+            fetchData();
+        });
+    </script>
+</body>
+</html>
